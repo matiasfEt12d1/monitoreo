@@ -1,6 +1,6 @@
 namespace presentation.domain
 {
-    public class ComputadoraEscritorio : IComputadora
+    public class ComputadoraEscritorio : Computadora
     {
         public ComputadoraEscritorio(string codigoInventario, string numeroSerie, string so, Laboratorio lab, ModeloPC modelo) 
             : base(codigoInventario, numeroSerie, so, lab, modelo) { }
