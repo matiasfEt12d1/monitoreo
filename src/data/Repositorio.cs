@@ -120,4 +120,64 @@ public static class Repositorio
             m.MacAddress
         });
     }
+
+    public static void InicializarBaseDeDatos()
+    {
+        // 1. Nos conectamos al servidor sin especificar la base de datos para poder crearla si no existe
+        var builder = new MySqlConnectionStringBuilder(connectionString);
+        string dbName = builder.Database; // Guarda el nombre de la base de datos
+
+        builder.Database = ""; // Limpia la BD temporalmente para la conexión inicial
+
+        using (var masterConn = new MySqlConnection(builder.ConnectionString))
+        {
+            masterConn.Open();
+            using var command = masterConn.CreateCommand();
+            command.CommandText = $"CREATE DATABASE IF NOT EXISTS `{dbName}`;";
+            command.ExecuteNonQuery();
+        }
+
+        // 2. Ahora que la BD existe, verificamos si tiene tablas. Si está vacía, ejecutamos el script SQL
+        using var conn = GetConnection();
+        int totalTablas = conn.QueryFirstOrDefault<int>(
+            "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = @dbName", 
+            new { dbName }
+        );
+
+        if (totalTablas == 0)
+        {
+            Console.WriteLine("Base de datos vacía. Creando tablas...");
+            
+            string directorioActual = AppContext.BaseDirectory;
+            string? rutaRaiz = null;
+
+            while (directorioActual != null)
+            {
+                if (Directory.Exists(Path.Combine(directorioActual, "scripts")))
+                {
+                    rutaRaiz = directorioActual;
+                    break;
+                }
+                directorioActual = Directory.GetParent(directorioActual)?.FullName!;
+            }
+
+            if (rutaRaiz == null)
+            {
+                throw new DirectoryNotFoundException("No se pudo ubicar dinámicamente la carpeta raíz 'monitoreo'.");
+            }
+
+            string rutaSql = Path.Combine(rutaRaiz, "scripts", "tables", "database.sql");
+            
+            if (File.Exists(rutaSql))
+            {
+                string scriptSql = File.ReadAllText(rutaSql);
+                conn.Execute(scriptSql);
+                Console.WriteLine("¡Tablas creadas con éxito!");
+            }
+            else
+            {
+                Console.WriteLine($"Advertencia: No se encontró el archivo SQL en la ruta calculada: {rutaSql}");
+            }
+        }
+    }
 }

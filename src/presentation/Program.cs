@@ -13,6 +13,9 @@ namespace presentation
         
             try
             {
+                // Creamos la base de datos y las tablas si no existen
+                Repositorio.InicializarBaseDeDatos();
+
                 // Llamamos al repositorio que está en la capa 'data'
                 List<Computadora> computadoras = Repositorio.ObtenerTodas();
 
