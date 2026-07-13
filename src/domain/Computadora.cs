@@ -1,6 +1,6 @@
 ﻿namespace presentation.domain
 {
-    public abstract class Computadora
+    public abstract class Computadora : IComputadora
     {
         public int IdPC { get; set; }
         public string CodigoInventario { get; set; }

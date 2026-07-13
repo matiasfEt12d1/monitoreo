@@ -1,6 +1,6 @@
 namespace presentation.domain
 {
-    public class Servidor : Computadora
+    public class Servidor : IComputadora
     {
         public double MaxTemperaturaTolerada { get; set; } = 70.0; 
 
