@@ -1,5 +1,5 @@
 using System.Data;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Dapper; 
@@ -16,7 +16,7 @@ public static class Repositorio
         var configuration = new ConfigurationBuilder()
             // Cambio clave aquí: AppContext.BaseDirectory garantiza que busque junto al ejecutable
             .SetBasePath(AppContext.BaseDirectory) 
-            .AddJsonFile("appsettingsExample.json", optional: false, reloadOnChange: true)
+            .AddJsonFile("appsettings.jsonc", optional: false, reloadOnChange: true)
             .Build();
 
         connectionString = configuration.GetConnectionString("DefaultConnection") 

@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Port=3306;Database=monitoreo;Uid=root;Pwd=root;" // Change the connection string as per your database configuration
+  }
+}
