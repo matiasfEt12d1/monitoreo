@@ -121,7 +121,7 @@ public static class Repositorio
         });
     }
 
-    public static void InicializarBaseDeDatos()
+        public static void InicializarBaseDeDatos()
     {
         // 1. Nos conectamos al servidor sin especificar la base de datos para poder crearla si no existe
         var builder = new MySqlConnectionStringBuilder(connectionString);
@@ -148,9 +148,10 @@ public static class Repositorio
         {
             Console.WriteLine("Base de datos vacía. Creando tablas...");
             
-            string directorioActual = AppContext.BaseDirectory;
+            string? directorioActual = AppContext.BaseDirectory;
             string? rutaRaiz = null;
 
+            // Bucle corregido de forma segura sin operadores '!' peligrosos
             while (directorioActual != null)
             {
                 if (Directory.Exists(Path.Combine(directorioActual, "scripts")))
@@ -158,12 +159,14 @@ public static class Repositorio
                     rutaRaiz = directorioActual;
                     break;
                 }
-                directorioActual = Directory.GetParent(directorioActual)?.FullName!;
+                
+                var directorioPadre = Directory.GetParent(directorioActual);
+                directorioActual = directorioPadre?.FullName;
             }
 
             if (rutaRaiz == null)
             {
-                throw new DirectoryNotFoundException("No se pudo ubicar dinámicamente la carpeta raíz 'monitoreo'.");
+                throw new DirectoryNotFoundException("No se pudo ubicar dinámicamente la carpeta raíz con los 'scripts'.");
             }
 
             string rutaSql = Path.Combine(rutaRaiz, "scripts", "tables", "database.sql");
@@ -180,4 +183,5 @@ public static class Repositorio
             }
         }
     }
+
 }
