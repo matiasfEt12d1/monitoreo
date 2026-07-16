@@ -182,6 +182,11 @@ public static class Repositorio
                 Console.WriteLine($"Advertencia: No se encontró el archivo SQL en la ruta calculada: {rutaSql}");
             }
         }
+        else
+        {
+            Console.WriteLine("La base de datos ya existe completamente");
+            Console.WriteLine("No se crearon tablas.");
+        }
     }
 
 }
