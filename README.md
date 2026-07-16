@@ -10,7 +10,7 @@ Proyecto escolar que trata sobre el monitoreo de las computadoras dentro de labo
 
 Hecho mediante un plan de aprendizaje de la especialidad "Computación" del segundo bimestre, cursando 5to año en una escuela técnica de la cápital de Buenos Aires, Argentina.
 
-**[Ver plan](https://docs.google.com/document/d/1M4aUSgpw1gBEQ-EK5sHgc5txV9WGWIC1qw4MRFnvzXk/edit?pli=1&tab=t.0)**
+**[Ver plan](https://docs.google.com/document/d/1qmluz8_D9ewM1CwVogVJZieahgNIxKe2JhOZI0hVrfM/edit?tab=t.0)**
 
 ---
 
