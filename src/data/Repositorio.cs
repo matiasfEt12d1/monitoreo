@@ -16,7 +16,7 @@ public static class Repositorio
         var configuration = new ConfigurationBuilder()
             // Cambio clave aquí: AppContext.BaseDirectory garantiza que busque junto al ejecutable
             .SetBasePath(AppContext.BaseDirectory) 
-            .AddJsonFile("appsettings.jsonc", optional: false, reloadOnChange: true)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
         connectionString = configuration.GetConnectionString("DefaultConnection") 
