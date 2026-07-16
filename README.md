@@ -6,7 +6,9 @@
 
 # Monitoreo
 
-Proyecto de monitoreo de sistema desarrollado en **.NET 8.0 con C#** con integración en una base de datos **MySQL** utilizando el paquete `MySqlConnector` y `Dapper`.
+Proyecto escolar que trata sobre el monitoreo de las computadoras dentro de laboratorios. Este sistema esta desarrollado en **.NET 8.0 con C#** y presenta de una integración con una base de datos **MySQL** utilizando el paquete `MySqlConnector` y `Dapper`.
+
+Enlace del plan de aprendizaje de la especialidad "Computación" del segundo bimestre cursando 5to año en una escuela técnica de la cápital de Buenos Aires, Argentina.
 
 ---
 
