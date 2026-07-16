@@ -1,7 +1,7 @@
 ﻿using presentation.domain;
 using presentation.data;
 using System;
-using System.Collections.Generic;
+using System.Threading;
 
 namespace presentation
 {
@@ -9,30 +9,47 @@ namespace presentation
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("=== SISTEMA DE MONITOREO ===");
-        
-            try
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("---------- MONITOREO ------------");
+            Console.WriteLine("---------------------------------");
+
+            bool repetir;
+
+            do
             {
-                // Creamos la base de datos y las tablas si no existen
-                Repositorio.InicializarBaseDeDatos();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error principal: {ex.Message}");
-                
-                // Inspeccionamos la excepción interna para ver el error real
-                if (ex.InnerException != null)
+                try
                 {
-                    Console.WriteLine($"\nCausa real (InnerException): {ex.InnerException.Message}");
-                    Console.WriteLine($"Rastreo (StackTrace):\n{ex.InnerException.StackTrace}");
+                    Repositorio.InicializarBaseDeDatos();
+
+                    Console.WriteLine("\nIniciando la aplicación...");
+                    Thread.Sleep(1000);
+                    Console.WriteLine();
                 }
-            }
-            finally
-            {
-                // Esto mantendrá la consola abierta para que leas el error
-                Console.WriteLine("\nPresiona Enter para salir...");
-                Console.ReadLine();
-            }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error principal: {ex.Message}");
+                    if (ex.InnerException != null)
+                    {
+                        Console.WriteLine($"Causa real: {ex.InnerException.Message}");
+                    }
+                }
+
+                Console.WriteLine("\n¿Quieres realizar otra ejecución? (s/n)");
+                string entrada = Console.ReadLine().ToLower();
+                
+                repetir = (entrada == "s");
+
+                if (!repetir)
+                {
+                    Console.WriteLine("Saliendo de la aplicación...");
+                    Thread.Sleep(1000);
+                }
+                else
+                {
+                    Console.Clear();
+                }
+
+            } while (repetir);
         }
     }
 }
